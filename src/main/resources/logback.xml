@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- <jmxConfigurator /> -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread - %L] %-5level %logger - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+
+	<appender name="KAFKA" class="xyz.KafkaAppender">
+		<topic>TEST_LOG</topic>
+		<server>kafka.server.com:9092</server>
+		<formatter class="xyz.formatter.JsonFormatter"/>
+	</appender>
+
+	<!-- 演示按时间滚动的策略 -->
+	<appender name="allLogFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>logs/zhengyue.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>logs/zhengyue.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<maxHistory>90</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>500MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	<root level="DEBUG">
+		<appender-ref ref="console" />
+		<appender-ref ref="allLogFile" />
+		<appender-ref ref="KAFKA" />
+	</root>
+</configuration>

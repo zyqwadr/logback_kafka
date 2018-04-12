@@ -1,0 +1,7 @@
+xyz/main$1.class
+xyz/formatter/JsonFormatter.class
+xyz/main.class
+xyz/formatter/MessageFormatter.class
+xyz/formatter/Formatter.class
+xyz/util/KafkaUtils.class
+xyz/KafkaAppender.class
